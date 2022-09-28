@@ -9,4 +9,7 @@ module.exports = {
   mapbox: {
     access_token: process.env.MAP_BOX_TOKEN,
   },
+  weatherstack: {
+    access_token: process.env.WEATHER_STACK_TOKEN,
+  },
 };
