@@ -7,12 +7,19 @@ const forecaset = require("./utils/forecast");
 // Geocode
 const geocode = require("./utils/geocode");
 
-geocode("Addis Ababa", (error, data) => {
-  console.log("Error: ", error);
-  console.log("Data: ", data);
-});
+// Take address from user via command
+const address = process.argv[2];
 
-forecaset("-73.98rtdyfugihl66", data.longitude, (error, data) => {
-  console.log("Error: ", error);
-  console.log("Data: ", data);
+// Check location is passed
+if (!address) return console.log("Please provide an address");
+
+geocode(address, (error, data) => {
+  if (error) return console.log(error);
+
+  forecaset(data.latitude, data.longitude, (error, forecastData) => {
+    if (error) return console.log(error);
+
+    console.log(data.location);
+    console.log(forecastData);
+  });
 });
