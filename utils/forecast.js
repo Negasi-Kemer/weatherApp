@@ -16,16 +16,16 @@ const forecaset = (latitude, longitude, callback) => {
     longitude +
     "?units=f";
 
-  // Send request
-  request({ url, json: true }, (error, response) => {
+  // Send request - destructure 'response' object and take only 'body'
+  request({ url, json: true }, (error, { body }) => {
     if (error) {
       callback("Unable to connect to weather services");
-    } else if (response.body.error) {
+    } else if (body.error) {
       console.log("Unable to find to find location", undefined);
     } else {
       callback(
         undefined,
-        `It's currently ${response.body.current.temperature} degrees out. It feels like ${response.body.current.feelslike} degrees out.`
+        `It's currently ${body.current.temperature} degrees out. It feels like ${body.current.feelslike} degrees out.`
       );
     }
   });
