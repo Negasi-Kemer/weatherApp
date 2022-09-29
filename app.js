@@ -13,13 +13,13 @@ const address = process.argv[2];
 // Check location is passed
 if (!address) return console.log("Please provide an address");
 
-geocode(address, (error, data) => {
+geocode(address, (error, { latitude, longitude, location }) => {
   if (error) return console.log(error);
-
-  forecaset(data.latitude, data.longitude, (error, forecastData) => {
+  console.log(latitude, longitude);
+  forecaset(latitude, longitude, (error, forecastData) => {
     if (error) return console.log(error);
 
-    console.log(data.location);
+    console.log(location);
     console.log(forecastData);
   });
 });

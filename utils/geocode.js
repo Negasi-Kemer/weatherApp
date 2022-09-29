@@ -14,19 +14,19 @@ const geocode = (address, callback) => {
     configs.mapbox.access_token +
     "&limit=1";
 
-  // Send request
-  request({ url, json: true }, (error, response) => {
+  // Send request - destructure 'response' object and take only 'body'
+  request({ url, json: true }, (error, { body }) => {
     if (error) {
       callback("Unable to connect to location services");
-    } else if (response.body.message) {
-      console.log(response.body.message);
-    } else if (response.body.features.length == 0) {
+    } else if (body.message) {
+      console.log(body.message);
+    } else if (body.features.length == 0) {
       callback("Location not found. Try another search");
     } else {
       callback(undefined, {
-        latitude: response.body.features[0].center[1],
-        longitude: response.body.features[0].center[0],
-        location: response.body.features[0].place_name,
+        latitude: body.features[0].center[1],
+        longitude: body.features[0].center[0],
+        location: body.features[0].place_name,
       });
     }
   });
